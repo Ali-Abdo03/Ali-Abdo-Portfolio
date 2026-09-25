@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0B0E">
+<meta name="color-scheme" content="dark">
+<title>Ali Abdo — Data Analyst</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0B0E;
+    --surface: #131419;
+    --surface-2: #1A1C22;
+    --border: #23252C;
+    --text: #F2F3F5;
+    --muted: #9AA0AC;
+    --muted-2: #6B7280;
+    --accent: #3DA9FC;
+    --accent-dim: rgba(61, 169, 252, 0.12);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: inherit; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+  section:first-of-type { border-top: none; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10, 11, 14, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav-inner {
+    max-width: 860px; margin: 0 auto; padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .nav-mark { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; }
+  .nav-links { display: flex; gap: 26px; flex-wrap: wrap; }
+  .nav-links a { color: var(--muted); font-size: 14px; transition: color .15s ease; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-toggle { display: none; }
+
+  /* Hero */
+  .hero { padding: 84px 0 88px; }
+  .hero-loc { color: var(--muted-2); font-size: 14px; margin-bottom: 22px; }
+  .hero h1 {
+    font-size: clamp(48px, 9vw, 84px);
+    line-height: 0.98;
+  }
+  .hero h1 .last { color: var(--accent); }
+  .hero p.tagline {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 18px;
+    margin-top: 26px;
+  }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 8px;
+    font-size: 14.5px; font-weight: 500;
+    border: 1px solid var(--border);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .btn-primary { background: var(--accent); color: #06111C; border-color: var(--accent); }
+  .btn-primary:hover { background: #5cb8fd; }
+  .btn-secondary { color: var(--text); }
+  .btn-secondary:hover { border-color: var(--muted-2); background: var(--surface); }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; }
+  .tag {
+    font-size: 12.5px; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 100px;
+    padding: 5px 13px;
+  }
+
+  /* Section headers */
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .sec-num { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; }
+  .sec-head h2 { font-size: 28px; }
+  .sec-sub { color: var(--muted); font-size: 15.5px; max-width: 540px; margin-bottom: 48px; }
+
+  /* Experience & Education entries */
+  .entry { display: grid; grid-template-columns: 150px 1fr; gap: 28px; margin-bottom: 44px; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-date { color: var(--muted-2); font-size: 13.5px; padding-top: 3px; white-space: nowrap; }
+  .entry-title { font-size: 19px; font-weight: 600; }
+  .entry-org { color: var(--accent); font-size: 15px; margin-top: 3px; }
+  .entry-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  .entry-tags span {
+    font-size: 12px; color: var(--muted); background: var(--surface);
+    border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px;
+  }
+  .entry ul { margin-top: 12px; padding-left: 18px; color: var(--muted); font-size: 14.5px; }
+  .entry ul li { margin-bottom: 7px; }
+  .entry ul li::marker { color: var(--accent); }
+  .entry-note { color: var(--muted); font-size: 14.5px; margin-top: 10px; }
+
+  /* Projects */
+  .project {
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px; background: var(--surface);
+    margin-bottom: 20px;
+  }
+  .project:last-child { margin-bottom: 0; }
+  .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .project-num { color: var(--muted-2); font-size: 13px; font-family: 'Space Grotesk', sans-serif; }
+  .project h3 { font-size: 19px; margin-top: 6px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 16px; }
+  .project-tags span {
+    font-size: 12px; color: var(--accent); background: var(--accent-dim);
+    border-radius: 6px; padding: 3px 9px;
+  }
+  .project ul { padding-left: 18px; color: var(--muted); font-size: 14.5px; }
+  .project ul li { margin-bottom: 7px; }
+  .project ul li::marker { color: var(--accent); }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 18px; font-size: 14px; color: var(--accent);
+    border-bottom: 1px solid transparent;
+  }
+  .project-link:hover { border-color: var(--accent); }
+  .project-link.disabled { color: var(--muted-2); pointer-events: none; }
+
+  /* Certificates */
+  .cert { display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .cert:last-child { border-bottom: none; }
+  .cert-org { color: var(--accent); font-size: 14px; margin-top: 4px; }
+  .cert-name { font-size: 17px; font-weight: 500; }
+
+  /* Skills */
+  .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px 40px; }
+  .skill-group h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .skill-count { color: var(--muted-2); font-size: 13px; margin-bottom: 14px; }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .skill-list span {
+    font-size: 13px; color: var(--muted); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px;
+  }
+
+  /* Contact */
+  .contact-links { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+  .contact-links a, .contact-links .row {
+    display: flex; align-items: center; gap: 12px; font-size: 16px; color: var(--text);
+  }
+  .contact-links a:hover { color: var(--accent); }
+  .icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); }
+  .social-row { display: flex; gap: 14px; margin-top: 30px; }
+  .social-row a {
+    border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px;
+    font-size: 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .social-row a:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 0;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    color: var(--muted-2); font-size: 13px;
+  }
+
+  /* Hero entrance animation — one orchestrated sequence, staggered */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-loc, .hero h1, .hero p.tagline, .hero .btn-row, .hero .tag-row {
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-loc      { animation-delay: 0.05s; }
+  .hero h1       { animation-delay: 0.15s; }
+  .hero p.tagline{ animation-delay: 0.32s; }
+  .hero .btn-row { animation-delay: 0.46s; }
+  .hero .tag-row { animation-delay: 0.58s; }
+
+  /* Nav scroll-spy indicator */
+  .nav-links a { position: relative; padding-bottom: 4px; }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; right: 100%; bottom: 0;
+    height: 1.5px; background: var(--accent);
+    transition: right 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after { right: 0; }
+
+  /* Refined hover states */
+  .btn { transition: border-color .18s ease, background .18s ease, transform .18s ease; }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .project {
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .project:hover {
+    border-color: #34363f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  }
+  .tag, .entry-tags span, .project-tags span, .skill-list span {
+    transition: border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .skill-list span:hover, .entry-tags span:hover {
+    border-color: var(--accent); color: var(--text);
+  }
+  .social-row a { transition: border-color .15s ease, color .15s ease, transform .15s ease; }
+  .social-row a:hover { transform: translateY(-1px); }
+    section { padding: 64px 0; }
+    .entry { grid-template-columns: 1fr; gap: 8px; }
+    .skill-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 0 64px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; animation: none !important; }
+    .hero-loc, .hero h1, .hero p.tagline, .hero .btn-row, .hero .tag-row { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark">AA</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="home">
+  <div class="hero-loc">London, United Kingdom</div>
+  <h1>Ali<br><span class="last">Abdo</span></h1>
+  <p class="tagline">Turning raw operational data into clear, actionable insight — across SQL, Excel and Power BI dashboards, statistical analysis, and full-stack data projects built end to end.</p>
+  <div class="btn-row">
+    <a href="#projects" class="btn btn-primary">View selected work</a>
+    <a href="#contact" class="btn btn-secondary">Get in touch</a>
+    <a href="./Ali_Abdo_CV.pdf" class="btn btn-secondary" download>Download CV (PDF)</a>
+  </div>
+  <div class="tag-row">
+    <span class="tag">Data Analysis</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Power BI</span>
+    <span class="tag">Excel</span>
+    <span class="tag">Python</span>
+    <span class="tag">dbt</span>
+    <span class="tag">Statistical Testing</span>
+    <span class="tag">Full-Stack Development</span>
+  </div>
+</header>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Experience</h2></div>
+    <p class="sec-sub">Hands-on data work inside a live product team, turning operational records into dashboards people actually use.</p>
+
+    <div class="entry">
+      <div class="entry-date">Jun 2024 — Jul 2026</div>
+      <div>
+        <div class="entry-title">Data Analyst</div>
+        <div class="entry-org">Scafflinq — Remote</div>
+        <div class="entry-tags">
+          <span>SQL</span><span>Excel</span><span>Power BI</span><span>Data Quality</span>
+        </div>
+        <ul>
+          <li>Assisted with data collection, cleaning and analysis of customer, operational and inspection datasets using Excel and SQL.</li>
+          <li>Supported the development and maintenance of Power BI dashboards to track key operational and customer KPIs.</li>
+          <li>Analysed inspection and compliance data to identify trends, anomalies and overdue records.</li>
+          <li>Prepared regular reports and data summaries for Operations, Product and Management teams.</li>
+          <li>Conducted data quality checks to identify missing, inconsistent or inaccurate records.</li>
+          <li>Worked with cross-functional teams to support ad-hoc analysis and data-driven process improvements.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Education</h2></div>
+    <p class="sec-sub">A First-Class trajectory grounded in computer science fundamentals, built on an IT foundation from college.</p>
+
+    <div class="entry">
+      <div class="entry-date">Sep 2023 — Jul 2026</div>
+      <div>
+        <div class="entry-title">Royal Holloway, University of London</div>
+        <div class="entry-org">BSc Computer Science — First-Class Honours</div>
+        <div class="entry-note">Software Engineering · Algorithms and Complexity · Security Management · Operating Systems · Database Systems · Project Management</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">Sep 2021 — Jul 2023</div>
+      <div>
+        <div class="entry-title">Uxbridge College</div>
+        <div class="entry-org">BTEC Level 3 National Extended Diploma, Information Technology — D*DD</div>
+        <div class="entry-note">Creating Systems to Manage Information · Big Data and Business Analytics · Cyber Security · IT Service Delivery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Selected Work</h2></div>
+    <p class="sec-sub">Independent projects spanning reporting, data engineering, statistical analysis and full-stack development.</p>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <div class="project-num">01</div>
+          <h3>Retail Sales &amp; Customer Insights Dashboard</h3>
+        </div>
+      </div>
+      <div class="project-tags"><span>SQL</span><span>Excel</span><span>Power BI</span></div>
+      <ul>
+        <li>Cleaned and modelled a public retail transactions dataset using SQL, structuring it for reliable reporting.</li>
+        <li>Built an interactive Power BI dashboard surfacing sales trends, top-performing products and customer segments.</li>
+        <li>Documented data sources, assumptions and refresh logic for reproducibility.</li>
+      </ul>
+      <span class="project-link disabled">Repository coming soon</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <div class="project-num">02</div>
+          <h3>Data Pipeline &amp; Transformation Project</h3>
+        </div>
+      </div>
+      <div class="project-tags"><span>dbt</span><span>SQL</span><span>PostgreSQL</span></div>
+      <ul>
+        <li>Built a dbt project transforming raw relational data through staging and modelled layers into clean, tested tables.</li>
+        <li>Wrote SQL-based data tests and documentation to ensure transformation reliability.</li>
+        <li>Applied version control (Git) throughout to track model changes.</li>
+      </ul>
+      <span class="project-link disabled">Repository coming soon</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <div class="project-num">03</div>
+          <h3>Marketing Campaign A/B Test Analysis</h3>
+        </div>
+      </div>
+      <div class="project-tags"><span>Python</span><span>pandas</span><span>Statistical Testing</span></div>
+      <ul>
+        <li>Analysed a public A/B test dataset using Python and pandas to compare campaign performance.</li>
+        <li>Applied hypothesis testing to determine statistical significance of observed differences.</li>
+        <li>Presented findings and a clear recommendation in a written summary.</li>
+      </ul>
+      <span class="project-link disabled">Repository coming soon</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div>
+          <div class="project-num">04</div>
+          <h3>GravityIQ — Football Analytics Platform</h3>
+        </div>
+      </div>
+      <div class="project-tags"><span>React</span><span>Node.js</span><span>Python</span></div>
+      <ul>
+        <li>Built a full-stack analytics platform combining data from multiple sources into a single analytical view.</li>
+        <li>Designed an original statistical metric (the Gravity Index) and validated it using regression and hypothesis testing.</li>
+        <li>Built interactive dashboards and visualisations (radar charts, positional maps) to present findings clearly.</li>
+      </ul>
+      <a class="project-link" href="https://github.com/Ali-Abdo03/GravityIQ-FYP" target="_blank" rel="noopener">View Repository</a>
+    </div>
+  </div>
+</section>
+
+<section id="certificates">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Certificates</h2></div>
+    <p class="sec-sub">Structured, verified learning alongside hands-on project work.</p>
+
+    <div class="cert">
+      <div>
+        <div class="cert-name">Data Analysis with SQL, Excel &amp; Power BI</div>
+        <div class="cert-org">Microsoft</div>
+      </div>
+    </div>
+    <div class="cert">
+      <div>
+        <div class="cert-name">Data Analyst Professional Certificate</div>
+        <div class="cert-org">IBM</div>
+      </div>
+    </div>
+    <div class="cert">
+      <div>
+        <div class="cert-name">Data Science Job Simulation</div>
+        <div class="cert-org">British Airways (via Forage)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Skills</h2></div>
+    <p class="sec-sub">A toolkit built for data work end to end — from raw records to a dashboard someone else can trust.</p>
+
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h4>Data &amp; Analytics</h4>
+        <div class="skill-count">8</div>
+        <div class="skill-list">
+          <span>SQL</span><span>Excel</span><span>Power BI</span><span>Python</span>
+          <span>R</span><span>dbt</span><span>Statistical Testing</span><span>Data Cleaning &amp; Validation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="skill-count">7</div>
+        <div class="skill-list">
+          <span>Python</span><span>Java</span><span>Dart</span><span>JavaScript</span>
+          <span>SQL</span><span>R</span><span>HTML/CSS/Sass</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks &amp; Tools</h4>
+        <div class="skill-count">7</div>
+        <div class="skill-list">
+          <span>Git/GitHub</span><span>React/Next.js</span><span>Node.js</span>
+          <span>Firebase</span><span>MongoDB</span><span>VS Code</span><span>Figma</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Process</h4>
+        <div class="skill-count">2</div>
+        <div class="skill-list">
+          <span>SCRUM</span><span>Agile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Get In Contact</h2></div>
+    <p class="sec-sub">Open to data analyst roles in the UK and Australia — happy to talk through any of the work above.</p>
+
+    <div class="contact-links">
+      <a href="mailto:alihusabdo@gmail.com">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18v12H3z"/><path d="m3 6 9 7 9-7"/></svg>
+        alihusabdo@gmail.com
+      </a>
+      <a href="tel:+447498341970">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2Z"/></svg>
+        +44 07498 341970
+      </a>
+      <div class="row">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        London, United Kingdom
+      </div>
+    </div>
+
+    <div class="social-row">
+      <a href="https://github.com/Ali-Abdo03" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/ali-abdo-164744298/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 Ali Abdo</span>
+  <span>Built for data, not decoration</span>
+</footer>
+
+<script>
+  (function () {
+    var sections = document.querySelectorAll('section[id], header[id]');
+    var navLinks = document.querySelectorAll('.nav-links a');
+    var map = {};
+    navLinks.forEach(function (link) {
+      map[link.getAttribute('href').slice(1)] = link;
+    });
+    if (!('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = map[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(function (l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+  })();
+</script>
+</body>
+</html>
