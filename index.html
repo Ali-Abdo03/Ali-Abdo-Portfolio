@@ -360,13 +360,27 @@ nav {
   }
 }
 
+
+/* PREMIUM UPGRADE */
+body{background-attachment:scroll!important;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px,transparent 1px,transparent 6px)}
+#cursorGlow{position:fixed;width:380px;height:380px;border-radius:50%;pointer-events:none;left:0;top:0;background:radial-gradient(circle,rgba(61,169,252,.12),transparent 70%);transform:translate(-50%,-50%);z-index:-1;filter:blur(20px)}
+nav{backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important}
+.project,.entry,.tag,.btn,.skill-list span{will-change:transform;transform:translateZ(0)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.reveal.show{opacity:1;transform:none}
+.project{overflow:hidden}
+.project::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.04),transparent);transform:translateX(-120%)}
+.project:hover::before{transform:translateX(120%);transition:1s}
+#progressBar{background:linear-gradient(90deg,#3da9fc,#7dd3fc);box-shadow:0 0 12px #3da9fc,0 0 24px #3da9fc}
+.stats-row{display:flex;gap:40px;margin-top:30px;flex-wrap:wrap}.stat strong{display:block;font-size:28px}.stat span{color:#9298a4;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body><div id="cursorGlow"></div>
 <nav>
   <div class="nav-inner">
     <div class="nav-mark">AA</div>
@@ -392,7 +406,7 @@ nav {
     <a href="#contact" class="btn">Get in touch</a>
     <a href="./Ali_Abdo_CV.pdf" class="btn" download>Download CV (PDF)</a>
   </div>
-  <div class="tag-row">
+  <div class="stats-row"><div class="stat"><strong>4+</strong><span>Projects</span></div><div class="stat"><strong>2+</strong><span>Years Experience</span></div><div class="stat"><strong>10+</strong><span>Technologies</span></div></div><div class="tag-row">
     <span class="tag">Data Analysis</span><span class="tag">SQL</span><span class="tag">Power BI</span>
     <span class="tag">Excel</span><span class="tag">Python</span><span class="tag">dbt</span>
     <span class="tag">Statistical Testing</span><span class="tag">Full-Stack Development</span>
@@ -582,7 +596,7 @@ nav {
     links.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+id));
     const active=map[id];
     if(active){
-      active.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+      
     }
   }
 
@@ -607,6 +621,11 @@ nav {
     el.addEventListener("focus",()=>el.classList.add("keyboard-focus"));
     el.addEventListener("blur",()=>el.classList.remove("keyboard-focus"));
   });
+
+const glow=document.getElementById("cursorGlow");window.addEventListener("mousemove",e=>{glow.style.left=e.clientX+"px";glow.style.top=e.clientY+"px"});
+document.querySelectorAll("section,.hero,.project,.entry").forEach(e=>e.classList.add("reveal"));
+const ro=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting)x.target.classList.add("show")}),{threshold:.12});document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
+let ticking=false;window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{const p=document.getElementById('progressBar');const m=document.documentElement.scrollHeight-window.innerHeight;if(p)p.style.width=((window.scrollY/m)*100)+'%';ticking=false});ticking=true;}},{passive:true});
 })();
 </script>
 </body>
